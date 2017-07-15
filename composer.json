@@ -1,0 +1,31 @@
+{
+	"name": "aipng/forms",
+	"type": "library",
+	"description": "Reusable form control.",
+	"keywords": ["form", "control", "nette"],
+	"license": "BSD",
+	"authors": [
+		{
+			"name": "Karel Horský",
+			"email": "karel.horsky@centrum.cz"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"AipNg\\": "src/"
+		},
+		"classmap": [
+			"src/Forms/Exceptions"
+		]
+	},
+	"require": {
+		"php": ">= 7.1",
+		"nette/forms": "^2.4.5",
+		"nette/application": "^2.4.7"
+	},
+	"require-dev": {
+		"aipng/coding-standard": "^0.2.0",
+		"nette/tester": "^1.7.1",
+		"phpstan/phpstan": "^0.6.4"
+	}
+}
