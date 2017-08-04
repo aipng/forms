@@ -18,6 +18,11 @@
 			"src/Forms/Exceptions"
 		]
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"AipNg\\Tests\\": "tests/"
+		}
+	},
 	"require": {
 		"php": ">= 7.1",
 		"nette/forms": "^2.4.5",
