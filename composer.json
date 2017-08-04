@@ -29,7 +29,6 @@
 		"nette/application": "^2.4.7"
 	},
 	"require-dev": {
-		"aipng/coding-standard": "^0.2.0",
 		"nette/tester": "^1.7.1"
 	}
 }
