@@ -29,6 +29,6 @@
 		"nette/application": "^2.4.7"
 	},
 	"require-dev": {
-		"nette/tester": "^1.7.1"
+		"nette/tester": "^2.0.0"
 	}
 }
