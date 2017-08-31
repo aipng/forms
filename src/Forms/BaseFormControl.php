@@ -36,11 +36,14 @@ abstract class BaseFormControl extends Control
 
 	protected function getTemplateFile(): string
 	{
-		$classFileName = static::getReflection()->getFileName();
+		$reflection = new \ReflectionClass($this);
 
-		$templateFileName = basename($classFileName, '.php') . '.latte';
-
-		return dirname($classFileName) . DIRECTORY_SEPARATOR . $templateFileName;
+		return sprintf(
+			'%s%s%s.latte',
+			dirname($reflection->getFileName()),
+			DIRECTORY_SEPARATOR,
+			$reflection->getShortName()
+		);
 	}
 
 }
