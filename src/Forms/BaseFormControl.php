@@ -29,8 +29,8 @@ abstract class BaseFormControl extends Control
 
 	public function render(): void
 	{
-		$this->template->setFile($this->getTemplateFile());
-		$this->template->render();
+		$this->getTemplate()->setFile($this->getTemplateFile());
+		$this->getTemplate()->render();
 	}
 
 

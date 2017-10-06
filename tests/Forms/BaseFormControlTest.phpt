@@ -22,7 +22,7 @@ class BaseFormControlTest extends TestCase
 
 		};
 
-		Assert::exception(function () use ($form) {
+		Assert::exception(function () use ($form): void {
 			$form->setDefaults([]);
 		}, MethodNotImplementedException::class);
 	}

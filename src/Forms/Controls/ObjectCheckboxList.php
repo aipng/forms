@@ -118,7 +118,7 @@ class ObjectCheckboxList extends CheckboxList
 	 */
 	private function throwExceptionWhenNotInRange($object): void
 	{
-		if (!in_array($object, $this->objects, TRUE)) {
+		if (!in_array($object, $this->objects, true)) {
 			throw new InvalidArgumentException('Given value out of allowed set.');
 		}
 	}

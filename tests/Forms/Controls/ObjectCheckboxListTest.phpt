@@ -67,7 +67,7 @@ final class ObjectCheckboxListTest extends TestCase
 
 		Assert::same([], $this->list->getValue());
 
-		$this->list->setDefaultValue(NULL);
+		$this->list->setDefaultValue(null);
 
 		Assert::same([], $this->list->getValue());
 	}
@@ -112,7 +112,7 @@ final class ObjectCheckboxListTest extends TestCase
 	 */
 	public function testThrowExceptionOnInvalidValues($value): void
 	{
-		Assert::exception(function () use ($value) {
+		Assert::exception(function () use ($value): void {
 			$this->list->setDefaultValue($value);
 		}, InvalidArgumentException::class);
 	}
