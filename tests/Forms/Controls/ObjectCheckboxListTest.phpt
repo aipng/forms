@@ -89,9 +89,17 @@ final class ObjectCheckboxListTest extends TestCase
 	}
 
 
-	public function testSetValue(): void
+	public function testSetDefaultValue(): void
 	{
 		$this->list->setDefaultValue([$this->dummy2, $this->dummy3]);
+
+		Assert::same([$this->dummy2, $this->dummy3], $this->list->getValue());
+	}
+
+
+	public function testValue(): void
+	{
+		$this->list->setValue([$this->dummy2, $this->dummy3]);
 
 		Assert::same([$this->dummy2, $this->dummy3], $this->list->getValue());
 	}

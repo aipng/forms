@@ -45,15 +45,15 @@ class ObjectCheckboxList extends CheckboxList
 	 *
 	 * @throws \AipNg\Forms\InvalidArgumentException
 	 */
-	public function setDefaultValue($value)
+	public function setValue($value)
 	{
 		try {
 			if (!$value) {
-				parent::setDefaultValue($value);
+				parent::setValue($value);
 			} elseif (is_object($value)) {
 				$this->throwExceptionWhenNotInRange($value);
 
-				parent::setDefaultValue($this->getObjectKey($value));
+				parent::setValue($this->getObjectKey($value));
 			} elseif (is_array($value)) {
 				$objectIds = [];
 				foreach ($value as $object) {
@@ -62,7 +62,7 @@ class ObjectCheckboxList extends CheckboxList
 					$objectIds[] = $this->getObjectKey($object);
 				}
 
-				parent::setDefaultValue($objectIds);
+				parent::setValue($objectIds);
 			} else {
 				throw new InvalidArgumentException('Given value out of allowed set.');
 			}
