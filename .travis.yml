@@ -8,6 +8,7 @@ cache:
 
 php:
   - 7.1
+  - 7.2
 
 matrix:
   fast_finish: true
@@ -22,7 +23,7 @@ install:
 
 script:
   - ./vendor/bin/tester -s ./tests/
-  - temp/phpstan/bin/phpstan analyze -l 7 ./src/
+  - temp/phpstan/bin/phpstan analyze -l max ./src/
   - temp/coding-standard/phpcs ./src ./tests
 
 after_failure:
