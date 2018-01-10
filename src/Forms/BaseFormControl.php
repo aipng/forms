@@ -27,6 +27,15 @@ abstract class BaseFormControl extends Control
 	}
 
 
+	/**
+	 * @param object $entity
+	 */
+	public function loadEntity($entity): void
+	{
+		throw new MethodNotImplementedException(__METHOD__);
+	}
+
+
 	public function render(): void
 	{
 		$this->getTemplate()->setFile($this->getTemplateFile());
