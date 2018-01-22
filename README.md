@@ -12,29 +12,29 @@ Simple form component skeleton. Component form should be created in ```createCom
 class MyForm extends \AipNg\Forms\BaseFormControl
 {
 
-	public function createComponentForm()
-	{
-		$form = ...
-		
-		return $form;
-	}
+  public function createComponentForm()
+  {
+    $form = ...
+    
+    return $form;
+  }
 
 }
 
 //  in presenter
 
 class MyPresenter
-	public function createComponentMyForm()
-	{
-		return new MyForm;
-	}
+  public function createComponentMyForm()
+  {
+    return new MyForm;
+  }
 
-	public function actionEdit()
-	{
-		$this['myForm']->setDefaults([
-			...
-		]);
-	}
+  public function actionEdit()
+  {
+    $this['myForm']->setDefaults([
+      ...
+    ]);
+  }
 ```
 
 ObjectCheckboxList
@@ -44,11 +44,28 @@ Maps given objects to CheckboxList control. Example:
 
 ```php
 $control = new ObjectCheckboxList(
-    'control label',
-    $myObjectList,
-    function (MyObject $listItem) {
-		return [
-            $listItem->getId() => $listItem->getName(),
-        ];
-	});
+  'control label',
+  $myObjectList,
+  function (MyObject $listItem) {
+    return [
+      $listItem->getId() => $listItem->getName(),
+    ];
+  });
+```
+
+
+ObjectSelectBox
+------------------
+
+Maps given objects to SelectBox control. Example:
+
+```php
+$control = new ObjectSelectBox(
+  'control label',
+  $myObjectList,
+  function (MyObject $item) {
+    return [
+      $item->getId() => $item->getName(),
+    ];
+  });
 ```
