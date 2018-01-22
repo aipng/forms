@@ -2,7 +2,11 @@
 	"name": "aipng/forms",
 	"type": "library",
 	"description": "Reusable form control.",
-	"keywords": ["form", "control", "nette"],
+	"keywords": [
+		"form",
+		"control",
+		"nette"
+	],
 	"license": "BSD",
 	"authors": [
 		{
@@ -25,10 +29,13 @@
 	},
 	"require": {
 		"php": ">=7.1",
-		"nette/forms": "^2.4.5",
-		"nette/application": "^2.4.7"
+		"nette/forms": "^2.4",
+		"nette/application": "^2.4"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0.0"
+	},
+	"config": {
+		"sort-packages": true
 	}
 }
