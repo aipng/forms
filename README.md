@@ -69,3 +69,22 @@ $control = new ObjectSelectBox(
     ];
   });
 ```
+
+Latte
+-----
+
+Input description macro helps to show control's description in template when using manual render.
+
+Register in config.neon:
+
+```php
+latte:
+    macros:
+        - AipNg\Latte\Macro\InputDescriptionMacro::register
+```
+
+Just use anywhere in template
+
+```php
+{inputDescription $controlName}
+```

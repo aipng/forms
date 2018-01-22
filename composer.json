@@ -33,7 +33,8 @@
 		"nette/application": "^2.4"
 	},
 	"require-dev": {
-		"nette/tester": "^2.0.0"
+		"nette/tester": "^2.0.0",
+		"latte/latte": "^2.4"
 	},
 	"config": {
 		"sort-packages": true
