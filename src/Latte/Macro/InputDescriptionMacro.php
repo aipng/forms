@@ -7,8 +7,8 @@ namespace AipNg\Latte\Macro;
 use Latte\CompileException;
 use Latte\Compiler;
 use Latte\MacroNode;
-use Latte\PhpWriter;
 use Latte\Macros\MacroSet;
+use Latte\PhpWriter;
 
 final class InputDescriptionMacro extends MacroSet
 {
@@ -29,7 +29,7 @@ final class InputDescriptionMacro extends MacroSet
 		}
 
 		$name = $node->tokenizer->fetchWord();
-		$node->replaced = TRUE;
+		$node->replaced = true;
 
 		if (!$name) {
 			return $writer->write('echo %escape($_input->getOption(\'description\'));');
