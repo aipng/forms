@@ -7,7 +7,7 @@
 		"control",
 		"nette"
 	],
-	"license": "BSD",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Karel Horský",
