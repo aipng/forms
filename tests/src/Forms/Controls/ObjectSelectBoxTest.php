@@ -4,13 +4,10 @@ declare(strict_types = 1);
 
 namespace AipNg\Tests\Forms\Controls;
 
-require __DIR__ . '/../../bootstrap.php';
-
 use AipNg\Forms\Controls\ObjectSelectBox;
 use AipNg\Forms\InvalidArgumentException;
 use Nette\Forms\Form;
-use Tester\Assert;
-use Tester\TestCase;
+use PHPUnit\Framework\TestCase;
 
 final class ObjectSelectBoxTest extends TestCase
 {
@@ -59,7 +56,7 @@ final class ObjectSelectBoxTest extends TestCase
 		$html .= '<option value="3">value 3</option>';
 		$html .= '</select>';
 
-		Assert::same($html, (string) $this->selectBox->getControl());
+		$this->assertSame($html, (string) $this->selectBox->getControl());
 	}
 
 
@@ -67,7 +64,7 @@ final class ObjectSelectBoxTest extends TestCase
 	{
 		$this->selectBox->setValue($this->dummy2);
 
-		Assert::same($this->dummy2, $this->selectBox->getValue());
+		$this->assertSame($this->dummy2, $this->selectBox->getValue());
 	}
 
 
@@ -75,7 +72,7 @@ final class ObjectSelectBoxTest extends TestCase
 	{
 		$this->selectBox->setDefaultValue(null);
 
-		Assert::same(null, $this->selectBox->getValue());
+		$this->assertNull($this->selectBox->getValue());
 	}
 
 
@@ -83,7 +80,7 @@ final class ObjectSelectBoxTest extends TestCase
 	{
 		$this->selectBox->setDefaultValue($this->dummy2);
 
-		Assert::same($this->dummy2, $this->selectBox->getValue());
+		$this->assertSame($this->dummy2, $this->selectBox->getValue());
 	}
 
 
@@ -94,9 +91,9 @@ final class ObjectSelectBoxTest extends TestCase
 	 */
 	public function testThrowExceptionOnInvalidValues($value): void
 	{
-		Assert::exception(function () use ($value): void {
-			$this->selectBox->setDefaultValue($value);
-		}, InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->selectBox->setDefaultValue($value);
 	}
 
 
@@ -112,7 +109,18 @@ final class ObjectSelectBoxTest extends TestCase
 		];
 	}
 
+
+	public function testThrowExceptionOnInvalidItemMapper(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+
+		new ObjectSelectBox('myList', [
+			$this->dummy1,
+			$this->dummy2,
+			$this->dummy3,
+		], function (DummyClass $object) {
+			return $object->getId();
+		});
+	}
+
 }
-
-
-(new ObjectSelectBoxTest)->run();

@@ -4,15 +4,12 @@ declare(strict_types = 1);
 
 namespace AipNg\Tests\Forms;
 
-require __DIR__ . '/../bootstrap.php';
-
 use AipNg\Forms\BaseFormControl;
 use AipNg\Forms\MethodNotImplementedException;
 use Nette\Application\UI\Form;
-use Tester\Assert;
-use Tester\TestCase;
+use PHPUnit\Framework\TestCase;
 
-class BaseFormControlTest extends TestCase
+final class BaseFormControlTest extends TestCase
 {
 
 	public function testThrowExceptionWhenSetDefaultsNotImplemented(): void
@@ -22,9 +19,9 @@ class BaseFormControlTest extends TestCase
 
 		};
 
-		Assert::exception(function () use ($form): void {
-			$form->setDefaults([]);
-		}, MethodNotImplementedException::class);
+		$this->expectException(MethodNotImplementedException::class);
+
+		$form->setDefaults([]);
 	}
 
 
@@ -42,6 +39,7 @@ class BaseFormControlTest extends TestCase
 
 				return $form;
 			}
+
 		};
 
 		$form->setDefaults([
@@ -51,10 +49,7 @@ class BaseFormControlTest extends TestCase
 		/** @var \Nette\Application\UI\Form $componentForm */
 		$componentForm = $form->getComponent('form');
 
-		Assert::same($value, $componentForm->getValues()['field']);
+		$this->assertSame($value, $componentForm->getValues()['field']);
 	}
 
 }
-
-
-(new BaseFormControlTest)->run();

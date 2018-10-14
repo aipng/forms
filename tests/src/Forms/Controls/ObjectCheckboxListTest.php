@@ -4,13 +4,10 @@ declare(strict_types = 1);
 
 namespace AipNg\Tests\Forms\Controls;
 
-require __DIR__ . '/../../bootstrap.php';
-
 use AipNg\Forms\Controls\ObjectCheckboxList;
 use AipNg\Forms\InvalidArgumentException;
 use Nette\Application\UI\Form;
-use Tester\Assert;
-use Tester\TestCase;
+use PHPUnit\Framework\TestCase;
 
 final class ObjectCheckboxListTest extends TestCase
 {
@@ -57,7 +54,7 @@ final class ObjectCheckboxListTest extends TestCase
 		$html .= '<label><input type="checkbox" name="objectList[]" value="2">value 2</label><br>';
 		$html .= '<label><input type="checkbox" name="objectList[]" value="3">value 3</label>';
 
-		Assert::same($html, (string) $this->list->getControl());
+		$this->assertSame($html, (string) $this->list->getControl());
 	}
 
 
@@ -65,11 +62,11 @@ final class ObjectCheckboxListTest extends TestCase
 	{
 		$this->list->setDefaultValue([]);
 
-		Assert::same([], $this->list->getValue());
+		$this->assertSame([], $this->list->getValue());
 
 		$this->list->setDefaultValue(null);
 
-		Assert::same([], $this->list->getValue());
+		$this->assertSame([], $this->list->getValue());
 	}
 
 
@@ -77,7 +74,7 @@ final class ObjectCheckboxListTest extends TestCase
 	{
 		$this->list->setDefaultValue($this->dummy2);
 
-		Assert::same([$this->dummy2], $this->list->getValue());
+		$this->assertSame([$this->dummy2], $this->list->getValue());
 	}
 
 
@@ -85,7 +82,7 @@ final class ObjectCheckboxListTest extends TestCase
 	{
 		$this->list->setDefaultValue([$this->dummy1, $this->dummy3]);
 
-		Assert::same([$this->dummy1, $this->dummy3], $this->list->getValue());
+		$this->assertSame([$this->dummy1, $this->dummy3], $this->list->getValue());
 	}
 
 
@@ -93,7 +90,7 @@ final class ObjectCheckboxListTest extends TestCase
 	{
 		$this->list->setDefaultValue([$this->dummy2, $this->dummy3]);
 
-		Assert::same([$this->dummy2, $this->dummy3], $this->list->getValue());
+		$this->assertSame([$this->dummy2, $this->dummy3], $this->list->getValue());
 	}
 
 
@@ -101,7 +98,7 @@ final class ObjectCheckboxListTest extends TestCase
 	{
 		$this->list->setValue([$this->dummy2, $this->dummy3]);
 
-		Assert::same([$this->dummy2, $this->dummy3], $this->list->getValue());
+		$this->assertSame([$this->dummy2, $this->dummy3], $this->list->getValue());
 	}
 
 
@@ -112,9 +109,9 @@ final class ObjectCheckboxListTest extends TestCase
 	 */
 	public function testThrowExceptionOnInvalidValues($value): void
 	{
-		Assert::exception(function () use ($value): void {
-			$this->list->setDefaultValue($value);
-		}, InvalidArgumentException::class);
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->list->setDefaultValue($value);
 	}
 
 
@@ -133,7 +130,18 @@ final class ObjectCheckboxListTest extends TestCase
 		];
 	}
 
+
+	public function testThrowExceptionOnInvalidItemMapper(): void
+	{
+		$this->expectException(InvalidArgumentException::class);
+
+		$this->list = new ObjectCheckboxList('myList', [
+			$this->dummy1,
+			$this->dummy2,
+			$this->dummy3,
+		], function (DummyClass $object) {
+			return $object->getId();
+		});
+	}
+
 }
-
-
-(new ObjectCheckboxListTest)->run();

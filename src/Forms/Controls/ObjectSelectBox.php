@@ -11,27 +11,27 @@ final class ObjectSelectBox extends SelectBox
 {
 
 	/** @var callable */
-	private $pairCallback;
+	private $itemMapper;
 
-	/** @var mixed[] */
-	private $objects = [];
+	/** @var object[] */
+	private $objectItems = [];
 
 
 	/**
 	 * @param string $label
-	 * @param mixed[] $items
-	 * @param callable $callback transforms given item into string[] format: key (int|string) => label (string)
+	 * @param object[] $items
+	 * @param callable $itemMapper transforms given item into array, format: itemKey (int|string) => itemLabel (string)
 	 */
-	public function __construct(string $label, array $items, callable $callback)
+	public function __construct(string $label, array $items, callable $itemMapper)
 	{
-		$this->pairCallback = $callback;
+		$this->itemMapper = $itemMapper;
 
 		$parentItems = [];
 
 		foreach ($items as $item) {
-			$itemKey = $this->getObjectKey($item);
-			$parentItems[$itemKey] = $this->getObjectLabel($item);
-			$this->objects[$itemKey] = $item;
+			$itemKey = $this->getItemKey($item);
+			$parentItems[$itemKey] = $this->getItemLabel($item);
+			$this->objectItems[$itemKey] = $item;
 		}
 
 		parent::__construct($label, $parentItems);
@@ -51,7 +51,7 @@ final class ObjectSelectBox extends SelectBox
 			} elseif (is_object($value)) {
 				$this->throwExceptionWhenNotInRange($value);
 
-				parent::setValue($this->getObjectKey($value));
+				parent::setValue($this->getItemKey($value));
 			} else {
 				throw new InvalidArgumentException('Given value out of allowed set.');
 			}
@@ -64,39 +64,52 @@ final class ObjectSelectBox extends SelectBox
 
 
 	/**
-	 * @inheritdoc
+	 * @return object|null
 	 */
 	public function getValue()
 	{
 		$scalarValue = parent::getValue();
 
-		return array_key_exists($scalarValue, $this->objects)
-			? $this->objects[$scalarValue]
+		return array_key_exists($scalarValue, $this->objectItems)
+			? $this->objectItems[$scalarValue]
 			: null;
 	}
 
 
 	/**
-	 * @param mixed $object
+	 * @param object $item
 	 *
 	 * @return int|string
 	 */
-	private function getObjectKey($object)
+	private function getItemKey($item)
 	{
-		$pair = call_user_func($this->pairCallback, $object);
+		$itemPair = call_user_func($this->itemMapper, $item);
 
-		return key($pair);
+		if (!is_array($itemPair)) {
+			throw new InvalidArgumentException(sprintf(
+				'Item mapper should map given item to an <int|string, string> array, \'%s\' given!',
+				is_object($itemPair) ? 'object' : gettype($itemPair)
+			));
+		}
+
+		$itemKey = key($itemPair);
+
+		if (!(is_int($itemKey) || is_string($itemKey))) {
+			throw new InvalidArgumentException('Unable to get item key. Check item mapper function, please!');
+		}
+
+		return $itemKey;
 	}
 
 
 	/**
-	 * @param mixed $object
+	 * @param object $item
 	 *
 	 * @return string
 	 */
-	private function getObjectLabel($object): string
+	private function getItemLabel($item): string
 	{
-		$pair = call_user_func($this->pairCallback, $object);
+		$pair = call_user_func($this->itemMapper, $item);
 
 		return current($pair);
 	}
@@ -109,7 +122,7 @@ final class ObjectSelectBox extends SelectBox
 	 */
 	private function throwExceptionWhenNotInRange($object): void
 	{
-		if (!in_array($object, $this->objects, true)) {
+		if (!in_array($object, $this->objectItems, true)) {
 			throw new InvalidArgumentException('Given value out of allowed set.');
 		}
 	}

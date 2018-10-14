@@ -37,10 +37,15 @@ abstract class BaseFormControl extends Control
 	protected function getTemplateFile(): string
 	{
 		$reflection = new \ReflectionClass($this);
+		$formFileName = $reflection->getFileName();
+
+		if (!$formFileName) {
+			throw new InvalidArgumentException('Unable to get form file name!');
+		}
 
 		return sprintf(
 			'%s%s%s.latte',
-			dirname($reflection->getFileName()),
+			dirname($formFileName),
 			DIRECTORY_SEPARATOR,
 			$reflection->getShortName()
 		);
