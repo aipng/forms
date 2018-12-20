@@ -27,9 +27,15 @@ abstract class BaseFormControl extends Control
 	}
 
 
+	public function beforeRender(): void
+	{
+	}
+
+
 	public function render(): void
 	{
 		$this->getTemplate()->setFile($this->getTemplateFile());
+		$this->beforeRender();
 		$this->getTemplate()->render();
 	}
 
