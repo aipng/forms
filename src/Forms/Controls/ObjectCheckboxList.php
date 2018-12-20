@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:ignoreFile -- errors in PHP 7.2+ because of missing object|null type hints
+
 declare(strict_types = 1);
 
 namespace AipNg\Forms\Controls;
