@@ -17,3 +17,6 @@ parameters:
 
 	fileExtensions:
 		- php
+
+	ignoreErrors:
+		- '#Return type \(object\|null\) of method AipNg\\Forms\\Controls\\ObjectSelectBox::getValue\(\) should be compatible with return type \(int|string\) of method Nette\\Forms\\Controls\\ChoiceControl::getValue\(\)#'
