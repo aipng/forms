@@ -6,6 +6,9 @@ namespace AipNg\Forms;
 
 use Nette\Application\UI\Control;
 
+/**
+ * @property \Nette\Bridges\ApplicationLatte\Template $template
+ */
 abstract class BaseFormControl extends Control
 {
 
@@ -34,27 +37,31 @@ abstract class BaseFormControl extends Control
 
 	public function render(): void
 	{
-		$this->getTemplate()->setFile($this->getTemplateFile());
 		$this->beforeRender();
-		$this->getTemplate()->render();
+		$this->template->render($this->getTemplateFile());
 	}
 
 
 	protected function getTemplateFile(): string
 	{
-		$reflection = new \ReflectionClass($this);
-		$formFileName = $reflection->getFileName();
+		$shortName = $this->getReflection()->getShortName();
+		/** @var string $fileName */
+		$fileName = $this->getReflection()->getFileName();
+		$dir = dirname($fileName);
 
-		if (!$formFileName) {
-			throw new InvalidArgumentException('Unable to get form file name!');
+		$files = [
+			sprintf('%s/templates/%s.latte', $dir, $shortName),
+			sprintf('%s/%s.latte', $dir, $shortName),
+		];
+
+		foreach ($files as $file) {
+			if (is_file($file)) {
+				return $file;
+				break;
+			}
 		}
 
-		return sprintf(
-			'%s%s%s.latte',
-			dirname($formFileName),
-			DIRECTORY_SEPARATOR,
-			$reflection->getShortName()
-		);
+		return __DIR__ . '/BaseFormControl.latte';
 	}
 
 }
