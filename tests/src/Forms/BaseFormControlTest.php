@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace AipNg\Tests\Forms;
 
-use AipNg\Forms\BaseFormControl;
 use AipNg\Forms\MethodNotImplementedException;
-use Nette\Application\UI\Form;
+use AipNg\Tests\Forms\TestForms\CompleteForm;
+use AipNg\Tests\Forms\TestForms\IncompleteForm;
 use PHPUnit\Framework\TestCase;
 
 final class BaseFormControlTest extends TestCase
@@ -14,10 +14,7 @@ final class BaseFormControlTest extends TestCase
 
 	public function testThrowExceptionWhenSetDefaultsNotImplemented(): void
 	{
-		$form = new class() extends BaseFormControl
-		{
-
-		};
+		$form = new IncompleteForm;
 
 		$this->expectException(MethodNotImplementedException::class);
 
@@ -29,27 +26,16 @@ final class BaseFormControlTest extends TestCase
 	{
 		$value = 'test value';
 
-		$form = new class() extends BaseFormControl
-		{
-
-			protected function createComponentForm(): Form
-			{
-				$form = new Form;
-				$form->addText('field');
-
-				return $form;
-			}
-
-		};
+		$form = new CompleteForm;
 
 		$form->setDefaults([
 			'field' => $value,
 		]);
 
-		/** @var \Nette\Application\UI\Form $componentForm */
-		$componentForm = $form->getComponent('form');
+		/** @var \Nette\Application\UI\Form $subForm */
+		$subForm = $form->getComponent('form');
 
-		$this->assertSame($value, $componentForm->getValues()['field']);
+		$this->assertSame($value, $subForm->getValues()['field']);
 	}
 
 }
