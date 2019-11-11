@@ -32,10 +32,12 @@ final class BaseFormControlTest extends TestCase
 			'field' => $value,
 		]);
 
-		/** @var \Nette\Application\UI\Form $subForm */
 		$subForm = $form->getComponent('form');
 
-		$this->assertSame($value, $subForm->getValues()['field']);
+		/** @var mixed[] $values */
+		$values = $subForm->getValues();
+
+		$this->assertSame($value, $values['field']);
 	}
 
 }

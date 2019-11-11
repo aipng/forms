@@ -1,18 +1,30 @@
-Forms
-=====
-
-Reusable form controls.
-
 BaseFormControl
 ---------------
 
-Simple form component skeleton. Component form should be created in ```createComponentForm``` method, form template is expected to be saved in *./\<className\>.tpl* 
+"Form as a component" control. Form should be defined in ```createComponentForm``` method.
 
+Simple structure:
+```plain
+/my-app/src/
+    templates/MyForm.latte
+    MyForm.php
+    MyForm.latte
+``` 
+
+**MyForm.latte** - customized form template (when needed)
+```latte
+{form form}
+    manual rendering of form controls
+    ...
+{/form}
+```
+
+**MyForm.php**
 ```php
-class MyForm extends \AipNg\Forms\BaseFormControl
+final class MyForm extends \AipNg\Forms\BaseFormControl
 {
 
-  public function createComponentForm()
+  public function createComponentForm(): \Nette\Application\UI\Form
   {
     $form = ...
     
@@ -20,7 +32,10 @@ class MyForm extends \AipNg\Forms\BaseFormControl
   }
 
 }
+```
 
+**Usage in presenter**
+```php
 //  in presenter
 
 class MyPresenter
@@ -40,7 +55,7 @@ class MyPresenter
 Latte
 -----
 
-Input description macro helps to show control's description in template when using manual render.
+Input description macro helps to show control's description in template when using manual rendering.
 
 Register in config.neon:
 
@@ -50,7 +65,7 @@ latte:
         - AipNg\Latte\Macro\InputDescriptionMacro::register
 ```
 
-Just use anywhere in template
+Just use anywhere in form template
 
 ```php
 {inputDescription $controlName}
