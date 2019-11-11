@@ -37,39 +37,6 @@ class MyPresenter
   }
 ```
 
-ObjectCheckboxList
-------------------
-
-Maps given objects to CheckboxList control. Example:
-
-```php
-$control = new ObjectCheckboxList(
-  'control label',
-  $myObjectList,
-  function (MyObject $listItem) {
-    return [
-      $listItem->getId() => $listItem->getName(),
-    ];
-  });
-```
-
-
-ObjectSelectBox
-------------------
-
-Maps given objects to SelectBox control. Example:
-
-```php
-$control = new ObjectSelectBox(
-  'control label',
-  $myObjectList,
-  function (MyObject $item) {
-    return [
-      $item->getId() => $item->getName(),
-    ];
-  });
-```
-
 Latte
 -----
 
