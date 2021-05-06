@@ -17,10 +17,7 @@
 	"autoload": {
 		"psr-4": {
 			"AipNg\\": "src/"
-		},
-		"classmap": [
-			"src/Forms/Exceptions"
-		]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {
