@@ -7,6 +7,7 @@ namespace AipNg\Tests\Forms;
 use AipNg\Forms\MethodNotImplementedException;
 use AipNg\Tests\Forms\TestForms\CompleteForm;
 use AipNg\Tests\Forms\TestForms\IncompleteForm;
+use Nette\Application\UI\Presenter;
 use PHPUnit\Framework\TestCase;
 
 final class BaseFormControlTest extends TestCase
@@ -27,6 +28,11 @@ final class BaseFormControlTest extends TestCase
 		$value = 'test value';
 
 		$form = new CompleteForm;
+
+		$presenter = new class extends Presenter {
+
+		};
+		$presenter->addComponent($form, 'frm');
 
 		$form->setDefaults([
 			'field' => $value,

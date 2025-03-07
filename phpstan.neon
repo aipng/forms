@@ -11,10 +11,6 @@ parameters:
 		- %rootDir%/../../../src
 		- %rootDir%/../../../tests
 
-	autoload_directories:
-		- %rootDir%/../../../src
-		- %rootDir%/../../../tests
-
 
 	fileExtensions:
 		- php

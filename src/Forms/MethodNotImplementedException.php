@@ -9,12 +9,14 @@ final class MethodNotImplementedException extends \RuntimeException
 
 	public function __construct(string $methodName, int $code = 0, ?\Throwable $previous = null)
 	{
-		$message = \sprintf(
-			"Method '%s' is not implemented!",
-			$methodName
+		parent::__construct(
+			sprintf(
+				"Method '%s' is not implemented!",
+				$methodName,
+			),
+			$code,
+			$previous,
 		);
-
-		parent::__construct($message, $code, $previous);
 	}
 
 }

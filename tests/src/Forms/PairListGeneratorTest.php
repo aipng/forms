@@ -21,7 +21,7 @@ final class PairListGeneratorTest extends TestCase
 				return [
 					$class->getId() => $class->getTitle(),
 				];
-			}
+			},
 		);
 
 		$this->assertCount(1, $list);

@@ -4,20 +4,11 @@ declare(strict_types = 1);
 
 namespace AipNg\Tests\Forms\Fixtures;
 
-final class DummyClass
+final readonly class DummyClass
 {
 
-	/** @var int */
-	private $id;
-
-	/** @var string */
-	private $title;
-
-
-	public function __construct(int $id, string $title)
+	public function __construct(private int $id, private string $title)
 	{
-		$this->id = $id;
-		$this->title = $title;
 	}
 
 

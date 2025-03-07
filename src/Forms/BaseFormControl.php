@@ -57,7 +57,6 @@ abstract class BaseFormControl extends Control
 		foreach ($files as $file) {
 			if (is_file($file)) {
 				return $file;
-				break;
 			}
 		}
 

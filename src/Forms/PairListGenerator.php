@@ -8,10 +8,12 @@ final class PairListGenerator
 {
 
 	/**
-	 * @param mixed[] $items
+	 * @template T
+	 *
+	 * @param T[] $items
 	 * @param callable $itemMapper
 	 *
-	 * @return string[]|array<string|int, string>
+	 * @return array<string|int, string>
 	 */
 	public static function generate(iterable $items, callable $itemMapper): array
 	{
@@ -27,6 +29,7 @@ final class PairListGenerator
 			$list[key($itemPair)] = current($itemPair);
 		}
 
+		/** @var array<string|int, string> */
 		return $list;
 	}
 
