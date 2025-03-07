@@ -61,8 +61,8 @@ Register in config.neon:
 
 ```php
 latte:
-    macros:
-        - AipNg\Latte\Macro\InputDescriptionMacro::register
+    extensions::
+        - AipNg\Latte\FormInputDescriptionExtension
 ```
 
 Just use anywhere in form template
